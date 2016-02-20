@@ -3,7 +3,7 @@
 -- fractal series 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: Integer -> Integer
 s 1 = 1 -- from t
-s n = undefined
+s n = (n `div` 2) `mod` (n-1) -- or something
 
 -- sum of [s 1, .., s n]
 t :: Int -> Integer
@@ -22,4 +22,5 @@ shout label value = putStrLn (label ++ ":") >> print value
 main :: IO ()
 main = do
   shout "S(1)" $ s 1
+  shout "S(1:20)" $ map s $ take 20 [1..]
   shout "T'(10^18)" $ t' 10^18
