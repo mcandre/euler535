@@ -10,9 +10,24 @@ Or see index.html if resource is down.
 
 E.g. `brew install ghc`
 
+## Optional
+
+* [Ruby](http://www.ruby-lang.org/en/) (for guard)
+
+E.g., `bundle`
+
 # EXAMPLE
 
 ```
 $ ./problem535.hs
+...
+```
+
+# GUARD
+
+```
+$ vi problem535.hs
+...
+$ guard
 ...
 ```
