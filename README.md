@@ -6,7 +6,7 @@ Or see index.html if resource is down.
 
 # REQUIREMENTS
 
-* [Haskell](https://www.haskell.org/)
+* [Haskell](https://www.haskell.org/) (64+ bits of integer precision)
 
 E.g. `brew install ghc`
 
