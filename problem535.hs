@@ -8,7 +8,7 @@ isqrt = floor . sqrt . fromIntegral
 -- fractal series 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: Integer -> Integer
 s 1 = 1 -- from t
-s n = (n+1) `mod` ((isqrt n) * 2) -- or something
+s n = (n+2) `mod` ((isqrt n) * 2) -- not a mod, but something
 
 -- sum of [s 1, .., s n]
 t :: Int -> Integer
