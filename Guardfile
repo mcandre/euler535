@@ -1,7 +1,7 @@
 guard :shell do
-  watch(/^*\.py$/) do |m|
+  watch(/^*\.hs$/) do |m|
     title = 'test'
-    eager "python #{m[0]} | head -n 20"
+    eager "runhaskell #{m[0]} | head -n 20"
     status = ($CHILD_STATUS.success? && :success) || :failed
     n '', title, status
     ''

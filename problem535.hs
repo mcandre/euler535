@@ -1,6 +1,6 @@
 #!/usr/bin/env runhaskell
 
-import Control.Exception.Base (assert)
+import qualified Data.Map as M
 
 isqrt :: Integer -> Integer
 isqrt = floor . sqrt . fromIntegral
@@ -13,11 +13,21 @@ ilog = floor . log . fromIntegral
 
 -- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: Integer -> Integer
-s 1 = 1 -- from t
-s n = s' n 0 where
-  s' :: Integer -> Integer -> Integer
-  s' n 0 = n
-  s' n m = s' (n-1) (m-1)
+s n = s' (M.empty :: M.Map Integer Integer) 1 n
+  where
+    s' :: M.Map Integer Integer -> Integer -> Integer -> Integer
+    s' tracks track 0 = case M.lookup track tracks of
+      Just ai -> ai
+      _ -> -42 -- easier error checking
+    s' tracks track n = s' tracks' track' n'
+      where
+        tracks' = M.insert track h tracks
+        h = 1 + M.findWithDefault 0 track tracks
+        track' = g n tracks'
+        n' = n - 1
+
+        g :: Integer -> M.Map Integer Integer -> Integer
+        g n tracks = (n+1) `mod` (toInteger (M.size tracks))
 
 -- sum of [s 1, .., s n]
 t :: Int -> Integer

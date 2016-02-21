@@ -1,17 +1,23 @@
 #!/usr/bin/env python
 
+from math import sqrt
+
 def main():
-    j = 1
+    k = 1
 
     while True:
-        ai = 1
+        j = 0
 
-        while ai < j:
-            print("%d" % ai)
+        while j < k:
+            ai = 1
 
-            ai += 1
+            while ai < j:
+                print("%d" % (ai))
+                ai += 1
 
-        j += 1
+            j  = (j + 1) % k
+
+        k += 1
 
 if __name__ == "__main__":
     main()
