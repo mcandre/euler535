@@ -14,7 +14,4 @@ def main():
         j += 1
 
 if __name__ == "__main__":
-    try:
-        main()
-    except:
-        pass
+    main()
