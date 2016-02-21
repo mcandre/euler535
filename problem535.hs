@@ -5,10 +5,19 @@ import Control.Exception.Base (assert)
 isqrt :: Integer -> Integer
 isqrt = floor . sqrt . fromIntegral
 
--- fractal series 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
+isin :: Integer -> Integer
+isin = floor . sin . fromIntegral
+
+ilog :: Integer -> Integer
+ilog = floor . log . fromIntegral
+
+-- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: Integer -> Integer
 s 1 = 1 -- from t
-s n = (n+2) `mod` ((isqrt n) * 2) -- not a mod, but something
+s n = s' n 0 where
+  s' :: Integer -> Integer -> Integer
+  s' n 0 = n
+  s' n m = s' (n-1) (m-1)
 
 -- sum of [s 1, .., s n]
 t :: Int -> Integer
