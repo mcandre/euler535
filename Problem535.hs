@@ -2,6 +2,8 @@ module Main (main) where
 
 import qualified Data.Sequence as Q -- Cheap appending and random indexing
 
+{-# INLINE isqrt #-}
+
 isqrt :: Integral a => a -> a
 isqrt = floor . (sqrt :: Float -> Float) . fromIntegral -- single-precision floating point
 
