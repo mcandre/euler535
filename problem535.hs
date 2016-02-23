@@ -1,38 +1,38 @@
-#!/usr/bin/env runhaskell
-
 data Mode = Run | Walk
 
 instance Enum Mode where
   fromEnum Run = 0
-  fromEnum Walk = 1
+  fromEnum _ = 1
 
   toEnum 0 = Run
-  toEnum 1 = Walk
+  toEnum _ = Walk
 
   succ Run = Walk
-  succ Walk = Run
+  succ _ = Run
 
 isqrt :: Integral a => a -> a
-isqrt = floor . sqrt . fromIntegral
+isqrt = floor . (sqrt :: Double -> Double) . fromIntegral
 
 -- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: [Int]
-s = [1] ++ (s' [2..] 0 Walk)
+s = [1] ++ (s' [1] [2..] 0 Walk)
   where
-    s' :: [Int] -> Int -> Mode -> [Int]
-    s' ns p mode = items ++ (s' ns' p' mode')
+    s' :: [Int] -> [Int] -> Int -> Mode -> [Int]
+    s' this ns p mode = emissions ++ (s' this' ns' p' mode')
       where
         p' = case mode of
           Walk -> p
           Run -> p + 1
 
-        b = s !! p'
+        b = this !! p'
 
-        (items, ns') = case mode of
+        (emissions, ns') = case mode of
           Walk -> ([b], ns)
           Run -> splitAt (isqrt b) ns
 
         mode' = succ mode
+
+        this' = this ++ emissions
 
 -- sum of [s !! 0, .., s !! (n-1)]
 t :: Int -> Int
@@ -45,11 +45,19 @@ t' = ((flip mod) 1000000000) . t  -- from spec
 shout :: (Show a) => String -> a -> IO ()
 shout label value = putStrLn (label ++ ":") >> print value
 
+s1_20_given :: [Int]
 s1_20_given = [1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5]
 
+t1_given :: Int
 t1_given = 1
+
+t20_given :: Int
 t20_given = 86
+
+t1000_given :: Int
 t1000_given = 364089
+
+t1000000000_given :: Int
 t1000000000_given = 498676527978348241
 
 main :: IO ()
@@ -67,6 +75,6 @@ main = do
   shout "T(1000" $ t 1000
 
   shout "T(10^9)_given" t1000000000_given
-  shout "T(10^9)" $ t (10^9)
+  shout "T(10^9)" $ t 1000000000
 
-  -- shout "T'(10^18)" $ t' 10^18
+  -- shout "T'(10^18)" $ t' 1000000000000000000
