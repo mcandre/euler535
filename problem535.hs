@@ -5,16 +5,16 @@ isqrt = floor . (sqrt :: Double -> Double) . fromIntegral
 
 -- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: [Int]
-s = 1 : s' (Q.fromList [1] :: Q.Seq Int) 2 0 0
+s = 1 : s' (Q.fromList [1] :: Q.Seq Int) 2 0
   where
-    s' :: Q.Seq Int -> Int -> Int -> Int -> [Int]
-    s' this i j 0 = y : s' this' i j' (isqrt y')
+    s' :: Q.Seq Int -> Int -> Int -> [Int]
+    s' this i 0 = y : s' this'' i (isqrt y')
       where
         this' = this Q.|> y
-        y = Q.index this' j
-        j' = j + 1
-        y' = Q.index this' j'
-    s' this i j r = y : s' this' i' j r'
+        y = Q.index this' 0
+        y' = Q.index this' 1
+        this'' = Q.drop 1 this'
+    s' this i r = y : s' this' i' r'
       where
         y = i
         this' = this Q.|> y
