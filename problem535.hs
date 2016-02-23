@@ -1,37 +1,39 @@
-data Mode = Run | Walk
+import qualified Data.Sequence as Q -- Cheap appending and random indexing
+
+data Mode = Walk | Run
 
 isqrt :: Integral a => a -> a
 isqrt = floor . (sqrt :: Double -> Double) . fromIntegral
 
-actions :: [Mode]
-actions = cycle [Walk, Run]
-
 -- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: [Int]
-s = 1 : s' [1] [2..] 0 actions
+s = 1 : s' (Q.fromList [1] :: Q.Seq Int) 2 0 Walk 0
   where
-    s' :: [Int] -> [Int] -> Int -> [Mode] -> [Int]
-    s' this ns p (mode:ms) = emissions ++ s' this' ns' p' ms
+    s' :: Q.Seq Int -> Int -> Int -> Mode -> Int -> [Int]
+    s' this i j Walk _ = y : s' this' i j' Run (isqrt y')
       where
-        p' = case mode of
-          Walk -> p
-          Run -> p + 1
-
-        b = this !! p'
-
-        (emissions, ns') = case mode of
-          Walk -> ([b], ns)
-          Run -> splitAt (isqrt b) ns
-
-        this' = this ++ emissions
+        this' = this Q.|> y
+        y = Q.index this' j
+        j' = j + 1
+        y' = Q.index this' j'
+    s' this i j Run r = y : s' this' i' j mode' r'
+      where
+        y = i
+        this' = this Q.|> y
+        i' = i + 1
+        r' = r - 1
+        mode' = if r' == 0 then
+                   Walk
+                else
+                   Run
 
 -- sum of [s !! 0, .., s !! (n-1)]
 t :: Int -> Int
 t n = (sum . take n) s
 
--- t modulo 10^9
-t' :: Int -> Int
-t' = flip mod 1000000000 . t  -- from spec
+-- -- t modulo 10^9
+-- t' :: Int -> Int
+-- t' = flip mod 1000000000 . t  -- from spec
 
 shout :: (Show a) => String -> a -> IO ()
 shout label value = putStrLn (label ++ ":") >> print value
