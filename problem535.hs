@@ -59,7 +59,7 @@ main = do
   shout "T(20)" $ t 20
 
   shout "T(1000)_given" tOneThousandGiven
-  shout "T(1000" $ t 1000
+  shout "T(1000)" $ t 1000
 
   shout "T(10^9)_given" tOneBillionGiven
   shout "T(10^9)" $ t 1000000000
