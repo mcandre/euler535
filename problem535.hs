@@ -1,31 +1,25 @@
 import qualified Data.Sequence as Q -- Cheap appending and random indexing
 
-data Mode = Walk | Run
-
 isqrt :: Integral a => a -> a
 isqrt = floor . (sqrt :: Double -> Double) . fromIntegral
 
 -- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: [Int]
-s = 1 : s' (Q.fromList [1] :: Q.Seq Int) 2 0 Walk 0
+s = 1 : s' (Q.fromList [1] :: Q.Seq Int) 2 0 0
   where
-    s' :: Q.Seq Int -> Int -> Int -> Mode -> Int -> [Int]
-    s' this i j Walk _ = y : s' this' i j' Run (isqrt y')
+    s' :: Q.Seq Int -> Int -> Int -> Int -> [Int]
+    s' this i j 0 = y : s' this' i j' (isqrt y')
       where
         this' = this Q.|> y
         y = Q.index this' j
         j' = j + 1
         y' = Q.index this' j'
-    s' this i j Run r = y : s' this' i' j mode' r'
+    s' this i j r = y : s' this' i' j r'
       where
         y = i
         this' = this Q.|> y
         i' = i + 1
         r' = r - 1
-        mode' = if r' == 0 then
-                   Walk
-                else
-                   Run
 
 -- sum of [s !! 0, .., s !! (n-1)]
 t :: Int -> Int
