@@ -1,14 +1,14 @@
-BIN=bin/problem535
-FLAGS=-O2 -Wall -fwarn-tabs --make -fforce-recomp -o $(BIN)
+BIN=bin/Problem535
+FLAGS=-O2 -optc-O3 -optc-ffast-math -Wall -fwarn-tabs --make -fforce-recomp -o $(BIN)
 
 all: test
 
 test: $(BIN)
 	time $(BIN)
 
-$(BIN): problem535.hs
+$(BIN): Problem535.hs
 	mkdir -p bin
-	ghc $(FLAGS) problem535.hs
+	ghc $(FLAGS) Problem535.hs
 
 hlint:
 	hlint .

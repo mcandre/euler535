@@ -1,3 +1,5 @@
+module Main (main) where
+
 import qualified Data.Sequence as Q -- Cheap appending and random indexing
 
 isqrt :: Integral a => a -> a
@@ -14,12 +16,9 @@ s = 1 : s' (Q.fromList [1] :: Q.Seq Word) 2 0
         y = Q.index this' 0
         y' = Q.index this' 1
         this'' = Q.drop 1 this'
-    s' this i r = y : s' this' i' r'
+    s' this i r = y : s' (this Q.|> y) (i + 1) (r - 1)
       where
         y = i
-        this' = this Q.|> y
-        i' = i + 1
-        r' = r - 1
 
 -- sum of [s !! 0, .., s !! (n-1)]
 t :: Int -> Integer

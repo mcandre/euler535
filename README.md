@@ -21,7 +21,7 @@ E.g., `bundle`
 
 ```
 $ make
-time bin/problem535
+time bin/Problem535
 S(1:20)_given:
 [1,1,2,1,3,2,4,1,5,3,6,2,7,8,4,9,1,10,11,5]
 S(1:20):
@@ -50,7 +50,7 @@ On a 16 GB RAM 2.3 GHz Intel Core i7 15" Mid-2012 MacBook Pro
 # GUARD
 
 ```
-$ vi problem535.hs
+$ vi Problem535.hs
 ...
 $ guard
 ...
