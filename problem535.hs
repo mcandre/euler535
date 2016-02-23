@@ -1,24 +1,17 @@
 data Mode = Run | Walk
 
-instance Enum Mode where
-  fromEnum Run = 0
-  fromEnum _ = 1
-
-  toEnum 0 = Run
-  toEnum _ = Walk
-
-  succ Run = Walk
-  succ _ = Run
-
 isqrt :: Integral a => a -> a
 isqrt = floor . (sqrt :: Double -> Double) . fromIntegral
 
+actions :: [Mode]
+actions = cycle [Walk, Run]
+
 -- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: [Int]
-s = [1] ++ (s' [1] [2..] 0 Walk)
+s = [1] ++ (s' [1] [2..] 0 actions)
   where
-    s' :: [Int] -> [Int] -> Int -> Mode -> [Int]
-    s' this ns p mode = emissions ++ (s' this' ns' p' mode')
+    s' :: [Int] -> [Int] -> Int -> [Mode] -> [Int]
+    s' this ns p (mode:ms) = emissions ++ (s' this' ns' p' ms)
       where
         p' = case mode of
           Walk -> p
@@ -29,8 +22,6 @@ s = [1] ++ (s' [1] [2..] 0 Walk)
         (emissions, ns') = case mode of
           Walk -> ([b], ns)
           Run -> splitAt (isqrt b) ns
-
-        mode' = succ mode
 
         this' = this ++ emissions
 
