@@ -42,7 +42,7 @@ T(10^9)_given:
 498676527978348241
 T(10^9):
 498676527978348241
-      576.54 real       204.16 user       184.81 sys
+      549.30 real       199.72 user       162.96 sys
 ```
 
 On a 16 GB RAM 2.3 GHz Intel Core i7 15" Mid-2012 MacBook Pro
