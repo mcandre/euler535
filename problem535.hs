@@ -4,10 +4,10 @@ isqrt :: Integral a => a -> a
 isqrt = floor . (sqrt :: Double -> Double) . fromIntegral
 
 -- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
-s :: [Int]
-s = 1 : s' (Q.fromList [1] :: Q.Seq Int) 2 0
+s :: [Word] -- unsigned 64 bit integer
+s = 1 : s' (Q.fromList [1] :: Q.Seq Word) 2 0
   where
-    s' :: Q.Seq Int -> Int -> Int -> [Int]
+    s' :: Q.Seq Word -> Word -> Word -> [Word]
     s' this i 0 = y : s' this'' i (isqrt y')
       where
         this' = this Q.|> y
@@ -22,29 +22,29 @@ s = 1 : s' (Q.fromList [1] :: Q.Seq Int) 2 0
         r' = r - 1
 
 -- sum of [s !! 0, .., s !! (n-1)]
-t :: Int -> Int
+t :: Int -> Word
 t n = (sum . take n) s
 
 -- -- t modulo 10^9
--- t' :: Int -> Int
+-- t' :: Word -> Word
 -- t' = flip mod 1000000000 . t  -- from spec
 
 shout :: (Show a) => String -> a -> IO ()
 shout label value = putStrLn (label ++ ":") >> print value
 
-sFirstTwentyGiven :: [Int]
+sFirstTwentyGiven :: [Word]
 sFirstTwentyGiven = [1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5]
 
-tFirstGiven :: Int
+tFirstGiven :: Word
 tFirstGiven = 1
 
-tTwentyGiven :: Int
+tTwentyGiven :: Word
 tTwentyGiven = 86
 
-tOneThousandGiven :: Int
+tOneThousandGiven :: Word
 tOneThousandGiven = 364089
 
-tOneBillionGiven :: Int
+tOneBillionGiven :: Word
 tOneBillionGiven = 498676527978348241
 
 main :: IO ()
