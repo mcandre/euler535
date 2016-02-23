@@ -1,7 +1,7 @@
 import qualified Data.Sequence as Q -- Cheap appending and random indexing
 
 isqrt :: Integral a => a -> a
-isqrt = floor . (sqrt :: Double -> Double) . fromIntegral
+isqrt = floor . (sqrt :: Float -> Float) . fromIntegral
 
 -- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: [Word] -- unsigned 64 bit integer
