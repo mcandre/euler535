@@ -22,8 +22,8 @@ s = 1 : s' (Q.fromList [1] :: Q.Seq Word) 2 0
         r' = r - 1
 
 -- sum of [s !! 0, .., s !! (n-1)]
-t :: Int -> Word
-t n = (sum . take n) s
+t :: Int -> Integer
+t n = (sum . take n . map fromIntegral) s
 
 -- -- t modulo 10^9
 -- t' :: Word -> Word

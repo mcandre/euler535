@@ -21,19 +21,31 @@ E.g., `bundle`
 
 ```
 $ make
-mkdir -p bin
-ghc -O2 -Wall -fwarn-tabs --make -fforce-recomp -o bin/problem535 problem535.hs
-[1 of 1] Compiling Main             ( problem535.hs, problem535.o )
-
-problem535.hs:43:1: Warning: Defined but not used: ‘t'’
-Linking bin/problem535 ...
 time bin/problem535
 S(1:20)_given:
 [1,1,2,1,3,2,4,1,5,3,6,2,7,8,4,9,1,10,11,5]
 S(1:20):
 [1,1,2,1,3,2,4,1,5,3,6,2,7,8,4,9,1,10,11,5]
-...
+T(1)_given:
+1
+T(1):
+1
+T(20)_given:
+86
+T(20):
+86
+T(1000)_given:
+364089
+T(1000:
+364089
+T(10^9)_given:
+498676527978348241
+T(10^9):
+498676527978348241
+      576.54 real       204.16 user       184.81 sys
 ```
+
+On a 16 GB RAM 2.3 GHz Intel Core i7 15" Mid-2012 MacBook Pro
 
 # GUARD
 
