@@ -10,12 +10,11 @@ s :: [Word] -- unsigned 64 bit integer
 s = 1 : s' (Q.fromList [1] :: Q.Seq Word) 2 0
   where
     s' :: Q.Seq Word -> Word -> Word -> [Word]
-    s' this i 0 = y : s' this'' i (isqrt y')
+    s' this i 0 = y : s' (Q.drop 1 this') i (isqrt y')
       where
         this' = this Q.|> y
         y = Q.index this' 0
         y' = Q.index this' 1
-        this'' = Q.drop 1 this'
     s' this i r = y : s' (this Q.|> y) (i + 1) (r - 1)
       where
         y = i
