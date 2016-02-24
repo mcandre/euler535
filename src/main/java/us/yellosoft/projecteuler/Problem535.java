@@ -106,26 +106,28 @@ public final class Problem535 implements Iterable<Long> {
 
     final Summer summer = new Summer();
 
-    final Long tFirst = problem535.stream().limit(1).reduce(summer).get();
+    final long tFirst = problem535.stream().limit(1).reduce(summer).get();
     System.out.println("T(1):\t\t" + tFirst);
 
-    final Long tTwentyGiven = 86L;
+    final long tTwentyGiven = 86L;
     System.out.println("T(20)_given:\t" + tTwentyGiven);
 
-    final Long tTwenty = problem535.stream().limit(20).reduce(summer).get();
+    final long tTwenty = problem535.stream().limit(20).reduce(summer).get();
     System.out.println("T(20):\t\t" + tTwenty);
 
-    final Long tOneThousandGiven = 364089L;
+    final long tOneThousandGiven = 364089L;
     System.out.println("T(1000)_given:\t" + tOneThousandGiven);
 
-    final Long tOneThousand = problem535.stream().limit(1000).reduce(summer).get();
+    final long tOneThousand = problem535.stream().limit(1000).reduce(summer).get();
     System.out.println("T(1000):\t" + tOneThousand);
 
-    final Long tOneBillionGiven = 498676527978348241L;
-    System.out.println("T(10^9)_given:\t" + tOneBillionGiven);
+    // final long tOneBillionGiven = 498676527978348241L;
+    // System.out.println("T(10^9)_given:\t" + tOneBillionGiven);
 
-    final Long tOneBillion = problem535.stream().limit(1000000000).reduce(summer).get();
-    System.out.println("T(10^9):\t" + tOneBillion);
-    // ...
+    // final long tOneBillion = problem535.stream().limit(1000000000).reduce(summer).get();
+    // System.out.println("T(10^9):\t" + tOneBillion);
+
+    final long tOneQuintillion = problem535.stream().limit(1000000000000000000L).reduce(new ModdingSummer(1000000000L)).get();
+    System.out.println("T(10^18) % 10^9:\t" + tOneQuintillion);
   }
 }
