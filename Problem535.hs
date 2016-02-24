@@ -9,7 +9,7 @@ isqrt = floor . (sqrt :: Float -> Float) . fromIntegral -- single-precision floa
 
 -- fractal series such as S = 1, 1, 2, 1, 3, 2, 4, 1, 5, 3, 6, 2, 7, 8, 4, 9, 1, 10, 11, 5, ...
 s :: [Word] -- unsigned 64 bit integer
-s = 1 : s' (Q.fromList [1] :: Q.Seq Word) 2 0
+s = 1 : s' (1 Q.<| Q.empty) 2 0
   where
     s' :: Q.Seq Word -> Word -> Word -> [Word]
     s' this i 0 = y : s' (Q.drop 1 this') i (isqrt y')
