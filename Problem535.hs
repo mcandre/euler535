@@ -14,8 +14,8 @@ s = 1 : s' (1 Q.<| Q.empty) 2 0
     s' :: Q.Seq Word -> Word -> Word -> [Word]
     s' this i 0 = y : s' (Q.drop 1 this') i (isqrt y')
       where
+        y = Q.index this 0
         this' = this Q.|> y
-        y = Q.index this' 0
         y' = Q.index this' 1
     s' this i r = y : s' (this Q.|> y) (i + 1) (r - 1)
       where
