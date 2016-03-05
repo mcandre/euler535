@@ -15,6 +15,7 @@ public final class Problem535 {
     private long j;
     private long r;
     private long h;
+    private long y;
     private long t;
     boolean first;
 
@@ -26,6 +27,7 @@ public final class Problem535 {
       this.j = 0L;
       this.r = 0L;
       this.h = 0L;
+      this.y = 0L;
       this.t = 0L;
       this.first = true;
     }
@@ -41,8 +43,6 @@ public final class Problem535 {
     }
 
     private void crank() {
-      long y;
-
       if (first) {
         first = false;
 
@@ -80,6 +80,12 @@ public final class Problem535 {
       }
     }
 
+    public long value() {
+      generate();
+
+      return y;
+    }
+
     public long sumModOneBillion() {
       generate();
 
@@ -88,10 +94,12 @@ public final class Problem535 {
   }
 
   public static void test() {
-    assert new S(1).sumModOneBillion() == 1L;
-    assert new S(20).sumModOneBillion() == 86L;
-    assert new S(1000).sumModOneBillion() == 364089L;
-    assert new S(1000000000).sumModOneBillion() == 498676527978348241L;
+    assert new S(20L).value() == 5L;
+
+    assert new S(1L).sumModOneBillion() == 1L;
+    assert new S(20L).sumModOneBillion() == 86L;
+    assert new S(1000L).sumModOneBillion() == 364089L;
+    assert new S(1000000000L).sumModOneBillion() == 498676527978348241L;
 
     System.out.println("Passed all assertions");
   }
