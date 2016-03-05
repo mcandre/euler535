@@ -9,6 +9,7 @@ public final class Problem535 {
 
   static class S {
     private long n;
+    private long maxJ;
     private long[][] s;
     private long i;
     private long j;
@@ -19,7 +20,8 @@ public final class Problem535 {
 
     public S(long n) {
       this.n = n;
-      this.s = LongBigArrays.newBigArray(n);
+      this.maxJ = 1000L + (long) Math.sqrt(n);
+      this.s = LongBigArrays.newBigArray(maxJ);
       this.i = 2L;
       this.j = 0L;
       this.r = 0L;
@@ -29,11 +31,13 @@ public final class Problem535 {
     }
 
     private void append(long y) {
-      LongBigArrays.set(s, h, y);
+      if (h < maxJ) {
+        LongBigArrays.set(s, h, y);
+      }
     }
 
-    private void add(long y) {
-      t = t + y;
+    private void addModOneBillion(long y) {
+      t = (t + y) % 1000000000;
     }
 
     private void crank() {
@@ -62,49 +66,40 @@ public final class Problem535 {
         r = r - 1;
       }
 
-      add(y);
+      addModOneBillion(y);
     }
 
     public void generate() {
       while (h < n) {
         crank();
         h++;
+
+        if (h % 1000000000 == 0) {
+          System.out.println("H: " + h);
+        }
       }
     }
 
-    public long sum() {
+    public long sumModOneBillion() {
       generate();
 
       return t;
     }
   }
 
+  public static void test() {
+    assert new S(1).sumModOneBillion() == 1L;
+    assert new S(20).sumModOneBillion() == 86L;
+    assert new S(1000).sumModOneBillion() == 364089L;
+    assert new S(1000000000).sumModOneBillion() == 498676527978348241L;
+
+    System.out.println("Passed all assertions");
+  }
+
   public static void main(final String[] args) {
-    final Long tFirstGiven = 1L;
-    System.out.println("T(1)_given:\t" + tFirstGiven);
+    test();
 
-    final long tFirst = (new S(1)).sum();
-    System.out.println("T(1):\t\t" + tFirst);
-
-    final long tTwentyGiven = 86L;
-    System.out.println("T(20)_given:\t" + tTwentyGiven);
-
-    final long tTwenty = (new S(20)).sum();
-    System.out.println("T(20):\t\t" + tTwenty);
-
-    final long tOneThousandGiven = 364089L;
-    System.out.println("T(1000)_given:\t" + tOneThousandGiven);
-
-    final long tOneThousand = (new S(1000)).sum();
-    System.out.println("T(1000):\t" + tOneThousand);
-
-    final long tOneBillionGiven = 498676527978348241L;
-    System.out.println("T(10^9)_given:\t" + tOneBillionGiven);
-
-    final long tOneBillion = (new S(1000000000)).sum();
-    System.out.println("T(10^9):\t" + tOneBillion);
-
-    // final long tOneQuintillion = problem535.stream().limit(1000000000000000000L).reduce(new ModdingSummer(1000000000L)).get();
-    // System.out.println("T(10^18) % 10^9:\t" + tOneQuintillion);
+    System.out.println("T(10^18)_(10^9):");
+    System.out.println(new S(1000000000000000000L).sumModOneBillion());
   }
 }
