@@ -18,19 +18,16 @@ public final class Problem535 implements Iterable<Long> {
 
   static class S implements Iterator<Long> {
     private BigList<Long> s;
-    private Long i;
-    private Long j;
-    private Long r;
+    private long i;
+    private long j;
+    private long r;
     boolean first;
 
     public S() {
       s = new LongBigArrayBigList();
-      s.add(1L);
-
       i = 2L;
       j = 0L;
       r = 0L;
-
       first = true;
     }
 
@@ -39,25 +36,38 @@ public final class Problem535 implements Iterable<Long> {
       return true;
     }
 
+    private void append(Long y) {
+      s.add(y);
+    }
+
     @Override
     public Long next() {
+      long y;
+
       if (first) {
         first = false;
-        return s.get(0L);
+
+        y = 1L;
+
+        append(y);
       } else if (r == 0) {
-        Long y = s.get(j);
-        s.add(y);
-        Long y2 = s.get(j + 1);
+        y = s.get(j);
+
+        append(y);
+
+        long y2 = s.get(j + 1);
         j = j + 1;
         r = lsqrt(y2);
-        return y;
       } else {
-        Long y = i;
-        s.add(y);
+        y = i;
+
+        append(y);
+
         i = i + 1;
         r = r - 1;
-        return y;
       }
+
+      return y;
     }
   }
 
@@ -121,13 +131,13 @@ public final class Problem535 implements Iterable<Long> {
     final long tOneThousand = problem535.stream().limit(1000).reduce(summer).get();
     System.out.println("T(1000):\t" + tOneThousand);
 
-    // final long tOneBillionGiven = 498676527978348241L;
-    // System.out.println("T(10^9)_given:\t" + tOneBillionGiven);
+    final long tOneBillionGiven = 498676527978348241L;
+    System.out.println("T(10^9)_given:\t" + tOneBillionGiven);
 
-    // final long tOneBillion = problem535.stream().limit(1000000000).reduce(summer).get();
-    // System.out.println("T(10^9):\t" + tOneBillion);
+    final long tOneBillion = problem535.stream().limit(1000000000).reduce(summer).get();
+    System.out.println("T(10^9):\t" + tOneBillion);
 
-    final long tOneQuintillion = problem535.stream().limit(1000000000000000000L).reduce(new ModdingSummer(1000000000L)).get();
-    System.out.println("T(10^18) % 10^9:\t" + tOneQuintillion);
+    // final long tOneQuintillion = problem535.stream().limit(1000000000000000000L).reduce(new ModdingSummer(1000000000L)).get();
+    // System.out.println("T(10^18) % 10^9:\t" + tOneQuintillion);
   }
 }
