@@ -21,7 +21,7 @@ public final class Problem535 {
 
     public S(long n) {
       this.n = n;
-      this.maxJ = 1000L + (long) Math.sqrt(n);
+      this.maxJ = (long) Math.sqrt(n);
       this.s = LongBigArrays.newBigArray(maxJ);
       this.i = 2L;
       this.j = 0L;
