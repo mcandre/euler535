@@ -9,7 +9,7 @@ public final class Problem535 {
 
   static class S {
     private long n;
-    private long maxJ;
+    private long jMaxBound;
     private long[][] s;
     private long i;
     private long j;
@@ -21,8 +21,8 @@ public final class Problem535 {
 
     public S(long n) {
       this.n = n;
-      this.maxJ = (long) Math.sqrt(n);
-      this.s = LongBigArrays.newBigArray(maxJ);
+      this.jMaxBound = (long) Math.sqrt(n);
+      this.s = LongBigArrays.newBigArray(jMaxBound);
       this.i = 2L;
       this.j = 0L;
       this.r = 0L;
@@ -33,7 +33,7 @@ public final class Problem535 {
     }
 
     private void append(long y) {
-      if (h < maxJ) {
+      if (h < jMaxBound) {
         LongBigArrays.set(s, h, y);
       }
     }
