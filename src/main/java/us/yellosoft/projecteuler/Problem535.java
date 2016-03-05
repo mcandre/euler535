@@ -105,9 +105,11 @@ public final class Problem535 {
   }
 
   public static void main(final String[] args) {
-    test();
-
-    System.out.println("T(10^18)_(10^9):");
-    System.out.println(new S(1000000000000000000L).sumModOneBillion());
+    if (args.length > 0 && args[0].equals("-t")) {
+      test();
+    } else {
+      System.out.println("T(10^18)_(10^9):");
+      System.out.println(new S(1000000000000000000L).sumModOneBillion());
+    }
   }
 }
