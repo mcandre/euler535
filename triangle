@@ -1,0 +1,2 @@
+#!/bin/sh
+erl -noshell -s triangle start ${1+"$@"}

@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/java,gradle
+# Created by https://www.gitignore.io/api/java,gradle,erlang
 
 ### Java ###
 *.class
@@ -32,3 +32,15 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
+
+### Erlang ###
+.eunit
+deps
+*.o
+*.beam
+*.plt
+erl_crash.dump
+ebin
+rel/example_project
+.concrete/DEV_MODE
+.rebar
