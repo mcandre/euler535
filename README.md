@@ -8,12 +8,12 @@ Or see index.html if resource is down.
 
 ```
 $ gradle shadowJar
-$ time bin/problem535 -t
+time bin/problem535 -t
 Passed all assertions
 
-real	0m0.126s
-user	0m0.088s
-sys	0m0.037s
+real	0m0.317s
+user	0m0.434s
+sys	0m0.071s
 $ time bin/problem535
 ...
 ```
