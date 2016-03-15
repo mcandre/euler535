@@ -1,5 +1,6 @@
 package us.yellosoft.projecteuler;
 
+import com.google.common.base.Preconditions;
 import com.google.common.math.BigIntegerMath;
 
 import java.math.BigInteger;
@@ -165,10 +166,10 @@ public final class Problem535 {
   }
 
   public static void test() {
-    assert t(BigInteger.ONE) == 1;
-    assert t(BigInteger.valueOf(20)) == 86;
-    assert t(BigInteger.valueOf(1000)) == 364089;
-    assert t(BigInteger.valueOf(1000000000L)) == 978348241;
+    Preconditions.checkArgument(t(BigInteger.ONE) == 1);
+    Preconditions.checkArgument(t(BigInteger.valueOf(20)) == 86);
+    Preconditions.checkArgument(t(BigInteger.valueOf(1000)) == 364089);
+    Preconditions.checkArgument(t(BigInteger.valueOf(1000000000L)) == 978348241);
 
     System.out.println("Passed all assertions");
   }
