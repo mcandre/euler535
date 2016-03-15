@@ -6,6 +6,9 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 
 public final class Problem535 {
+  /** Utility class */
+  private Problem535() {}
+
   public static BigInteger flSqrt(final BigInteger x) {
     return BigIntegerMath.sqrt(x, RoundingMode.DOWN);
   }
@@ -88,7 +91,7 @@ public final class Problem535 {
       return sum;
     }
 
-    public static void run(Track[] tracks, BigInteger n) {
+    public static void run(final Track[] tracks, final BigInteger n) {
       BigInteger m = tracks[0].n();
       int nextTrack = 0;
       int k;
@@ -130,7 +133,7 @@ public final class Problem535 {
       moonwalk(tracks, n);
     }
 
-    public static void moonwalk(Track[] tracks, BigInteger n) {
+    public static void moonwalk(final Track[] tracks, final BigInteger n) {
       BigInteger subtotal = BigInteger.ZERO;
 
       for (int i = 1; i < tracks.length; i++) {
@@ -140,7 +143,7 @@ public final class Problem535 {
       tracks[0].i = n.subtract(subtotal);
     }
 
-    public static int sumOfSums(Track[] tracks) {
+    public static int sumOfSums(final Track[] tracks) {
       BigInteger total = BigInteger.ZERO;
 
       for (Track track : tracks) {
@@ -152,7 +155,7 @@ public final class Problem535 {
       return total.divideAndRemainder(BigInteger.valueOf(1000000000L))[1].intValue();
     }
 
-    public static int t(BigInteger n) {
+    public static int t(final BigInteger n) {
       Track[] tracks = teleport(n);
       run(tracks, n);
       return sumOfSums(tracks);
