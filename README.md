@@ -1,4 +1,4 @@
-# euler535 - mcandre's attempt at Project Euler #535
+# euler535 - a nonrecursive solution to Project Euler #535
 
 https://projecteuler.net/problem=535
 
