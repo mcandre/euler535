@@ -1,4 +1,4 @@
-# problem535 - mcandre's attempt at Project Euler problem 535
+# euler535 - mcandre's attempt at Project Euler #535
 
 https://projecteuler.net/problem=535
 
@@ -8,13 +8,13 @@ Or see index.html if resource is down.
 
 ```
 $ gradle shadowJar
-time bin/problem535 -t
+time bin/euler535 -t
 Passed all assertions
 
 real	0m0.317s
 user	0m0.434s
 sys	0m0.071s
-$ time bin/problem535
+$ time bin/euler535
 ...
 ```
 

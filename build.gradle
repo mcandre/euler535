@@ -35,7 +35,7 @@ pmd { consoleOutput = true }
 
 jar {
   manifest {
-    attributes 'Main-Class': 'us.yellosoft.projecteuler.Problem535'
+    attributes 'Main-Class': 'us.yellosoft.projecteuler.Euler535'
   }
 }
 

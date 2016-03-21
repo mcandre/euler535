@@ -6,9 +6,9 @@ import com.google.common.math.BigIntegerMath;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-public final class Problem535 {
+public final class Euler535 {
   /** Utility class */
-  private Problem535() {}
+  private Euler535() {}
 
   public static BigInteger flSqrt(final BigInteger x) {
     return BigIntegerMath.sqrt(x, RoundingMode.DOWN);
