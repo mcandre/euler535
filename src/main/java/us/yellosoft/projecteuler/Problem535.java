@@ -14,52 +14,44 @@ public final class Problem535 {
     return BigIntegerMath.sqrt(x, RoundingMode.DOWN);
   }
 
-  public static int ceLog10(final BigInteger x) {
-    return BigIntegerMath.log10(x, RoundingMode.UP);
+  public static int flLog10(final BigInteger x) {
+    return BigIntegerMath.log10(x, RoundingMode.DOWN);
   }
 
   static final class Track {
-    public boolean drop = false;
-    public BigInteger r = BigInteger.ZERO;
     public BigInteger i = BigInteger.ZERO;
     public BigInteger j = BigInteger.ZERO;
-
-    public BigInteger n() {
-      return i.add(j);
-    }
+    public BigInteger r = BigInteger.ZERO;
+    public boolean skip = false;
   }
 
   public static Track[] teleport(final BigInteger n) {
-    BigInteger m = BigInteger.ZERO;
+    BigInteger sum = BigInteger.ZERO;
     int k = 0;
 
-    BigInteger circledNums = BigInteger.ONE;
-    BigInteger uncircledNums = BigInteger.ZERO;
+    BigInteger circled = BigInteger.ONE;
+    BigInteger uncircled = BigInteger.ZERO;
 
-    Track[] tracks = new Track[5 + ceLog10(n)];
+    Track[] tracks = new Track[5 + flLog10(n)];
     for (int i = 0; i < tracks.length; i++) {
       tracks[i] = new Track();
     }
 
     tracks[0].i = BigInteger.ONE;
 
-    BigInteger currentCircledNums = BigInteger.ZERO;
+    while (sum.compareTo(n) < 0) {
+      tracks[k].i = circled;
+      tracks[k].j = uncircled;
 
-    while (m.compareTo(n) < 0) {
-      tracks[k].i = circledNums;
-      tracks[k].j = uncircledNums;
+      uncircled = uncircled.add(circled);
+
+      if (k != 0) {
+        circled = circled.add(sumOfRoots(circled));
+      }
+
+      sum = circled.add(uncircled);
 
       k++;
-
-      circledNums = tracks[k - 1].i;
-      uncircledNums = tracks[k - 1].n();
-      m = circledNums.add(uncircledNums);
-
-      if (k != 1) {
-        currentCircledNums = tracks[k - 1].i;
-        circledNums = circledNums.add(sumOfRoots(currentCircledNums));
-        m = circledNums.add(uncircledNums);
-      }
     }
 
     Track[] reversed = new Track[k];
@@ -72,44 +64,33 @@ public final class Problem535 {
   }
 
   public static BigInteger sumOfRoots(final BigInteger n) {
-    BigInteger sum = BigInteger.ZERO;
-    BigInteger root = BigInteger.ONE;
-    BigInteger nextRoot;
-    BigInteger q;
+    BigInteger x, sum = BigInteger.ZERO;
+    BigInteger sqrtN = flSqrt(n);
 
-    while (root.multiply(root).compareTo(n) <= 0) {
-      nextRoot = root.add(BigInteger.ONE);
-
-      if (nextRoot.multiply(nextRoot).compareTo(n) > 0) {
-        q = n.subtract(root.multiply(root)).add(BigInteger.ONE);
-        sum = sum.add(q.multiply(root));
-      } else {
-        sum = sum.add(root.multiply(root.multiply(BigInteger.valueOf(2)).add(BigInteger.ONE)));
-      }
-
-      root = root.add(BigInteger.ONE);
+    for (x = BigInteger.ONE; x.compareTo(sqrtN) < 0; x = x.add(BigInteger.ONE)) {
+      sum = sum.add(x.multiply(x.multiply(BigInteger.valueOf(2)).add(BigInteger.ONE)));
     }
 
-    return sum;
+    return sum.add(x.multiply(n.subtract(x.multiply(x)).add(BigInteger.ONE)));
   }
 
   public static void run(final Track[] tracks, final BigInteger n) {
-    BigInteger m = tracks[0].n();
+    BigInteger m = tracks[0].i.add(tracks[0].j);
     int nextTrack = 0;
     int k;
 
     while (m.compareTo(n) < 0) {
       k = 0;
 
-      while (tracks[k].drop) {
-        tracks[k].drop = false;
+      while (tracks[k].skip) {
+        tracks[k].skip = false;
         k++;
       }
 
       if (tracks[k].r.equals(BigInteger.ZERO)) {
         nextTrack = k + 1;
 
-        while (tracks[nextTrack].drop) {
+        while (tracks[nextTrack].skip) {
           nextTrack++;
         }
 
@@ -118,17 +99,15 @@ public final class Problem535 {
 
       // Blink
       if (k == 0) {
-        tracks[k].i = tracks[k].i.add(tracks[k].r);
         m = m.add(tracks[k].r);
+        tracks[k].i = tracks[k].i.add(tracks[k].r);
         tracks[k].r = BigInteger.ZERO;
+        tracks[k].skip = true;
       } else {
+        m = m.add(BigInteger.ONE);
         tracks[k].r = tracks[k].r.subtract(BigInteger.ONE);
         tracks[k].i = tracks[k].i.add(BigInteger.ONE);
-        m = m.add(BigInteger.ONE);
-      }
-
-      if (tracks[k].r.compareTo(BigInteger.ZERO) <= 0) {
-        tracks[k].drop = true;
+        tracks[k].skip = tracks[k].r.compareTo(BigInteger.ZERO) == 0;
       }
     }
 
