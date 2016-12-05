@@ -22,4 +22,9 @@ On an 8 GB RAM 1.7 GHz Intel Core i7 13" Mid-2013 MacBook Air
 
 # REQUIREMENTS
 
-* [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 1.8+
+* [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 1.8+
+
+## Optional
+
+* [pargs](https://github.com/mcandre/pargs)
+* [editorconfig-tools](https://www.npmjs.com/package/editorconfig-tools)
