@@ -1,6 +1,4 @@
 #!/bin/sh
-set -eu
-IFS="$(printf '%b_' '\n\t ')"
-IFS="${IFS%_}"
-
+unset IFS
+set -euf
 java -cp "${0%/*}"/../build/libs/euler535-all.jar us.yellosoft.projecteuler.Euler535 "$@"
